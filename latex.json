@@ -1,0 +1,278 @@
+{
+  "template": {
+    "prefix": "template",
+    "description": "lezioni",
+    "body": [
+      "\\documentclass{article}",
+      "\\usepackage[italian]{babel}",
+      "\\usepackage[utf8]{inputenc}",
+      "\\usepackage{fancyhdr}",
+      "\\usepackage{tikz}",
+      "\\usepackage{amsmath}",
+      "",
+      "\\pagestyle{fancy}",
+      "\\fancyhf{}",
+      "\\rhead{Lezione $1}",
+      "\\lhead{$2}",
+      "\\rfoot{\\thepage}",
+      "",
+      "\\begin{document}",
+      "\t$0",
+      "\\end{document}"
+    ]
+  },
+  "beg": {
+    "prefix": "beg",
+    "description": "begin{} / end{}",
+    "body": [
+      "\\begin{$1}",
+      "\t$2",
+      "\\end{$1}",
+      "$0"
+    ]
+  },
+  "item": {
+    "prefix": "item",
+    "description": "Itemize",
+    "body": [
+      "\\begin{itemize}",
+      "\t\\item $1",
+      "\\end{itemize}",
+      "$0"
+    ]
+  },
+  "tm": {
+    "prefix": "tm",
+    "description": "Math",
+    "body": [
+      "$${1}$`!p",
+      "if t[2] and t[2][0] not in [',', '.', '?', '-', ' ']:",
+      "    snip.rv = ' '",
+      "else:",
+      "    snip.rv = ''",
+      "`$2"
+    ]
+  },
+  "dm": {
+    "prefix": "dm",
+    "description": "Math",
+    "body": [
+      "$$",
+      "$1",
+      "$$",
+      "$0"
+    ]
+  },
+  "sb": {
+    "prefix": "sb",
+    "description": "subscript",
+    "body": [
+      "_{$1}$0"
+    ]
+  },
+  "sp": {
+    "prefix": "sp",
+    "description": "superscript",
+    "body": [
+      "^{$1}$0"
+    ]
+  },
+  "sid": {
+    "prefix": "sid",
+    "description": "sideset",
+    "body": [
+      "\\sideset{_{$1}}{_{$2}^{$3}} $0"
+    ]
+  },
+  "int": {
+    "prefix": "int",
+    "description": "integral",
+    "body": [
+      "\\int_{$1}^{$2} $3  d $0"
+    ]
+  },
+  "oint": {
+    "prefix": "oint",
+    "description": "closed integral",
+    "body": [
+      "\\oint_{$1}^{$2} $3 d $0"
+    ]
+  },
+  "circ": {
+    "prefix": "circ",
+    "description": "circuitation",
+    "body": [
+      "\\oint_{$1} \\vec{ $2} \\cdot  d \\vec{l} $0"
+    ]
+  },
+  "sum": {
+    "prefix": "sum",
+    "description": "Sommatoria",
+    "body": [
+      "\\sum_{$1}^{$2} $0"
+    ]
+  },
+  "nab": {
+    "prefix": "nab",
+    "description": "nabla",
+    "body": [
+      "\\vec{\\nabla} "
+    ]
+  },
+  "rot": {
+    "prefix": "rot",
+    "description": "rotor",
+    "body": [
+      "\\vec{\\nabla} \\times $0"
+    ]
+  },
+  "div": {
+    "prefix": "div",
+    "description": "divergence",
+    "body": [
+      "\\vec{\\nabla} \\cdot $0"
+    ]
+  },
+  "det3": {
+    "prefix": "det3",
+    "description": "determinant of a 3x3 matrix",
+    "body": [
+      "\\begin{vmatrix}",
+      "$1 & $2 & $3 \\\\",
+      "$4 & $5 & $6 \\\\",
+      "$7 & $8 & $9 ",
+      "\\end{vmatrix} $0"
+    ]
+  },
+  "flux": {
+    "prefix": "flux",
+    "description": "flux",
+    "body": [
+      "\\phi_{$1} \\left( $2 \\right)  $0"
+    ]
+  },
+  "chi": {
+    "prefix": "chi",
+    "description": "chi",
+    "body": [
+      "\\mathcal{X}"
+    ]
+  },
+  "pv": {
+    "prefix": "pv",
+    "description": "prod vec",
+    "body": [
+      " \\times "
+    ]
+  },
+  "ps": {
+    "prefix": "ps",
+    "description": "prod scal",
+    "body": [
+      " \\cdot "
+    ]
+  },
+  "pt": {
+    "prefix": "pt",
+    "description": "parentesi tonde",
+    "body": [
+      "\\left( $1 \\right) $0"
+    ]
+  },
+  "pq": {
+    "prefix": "pq",
+    "description": "parentesi quadre",
+    "body": [
+      "\\left[ $1 \\right] $0 "
+    ]
+  },
+  "pg": {
+    "prefix": "pg",
+    "description": "parentesi graffe",
+    "body": [
+      "\\left{ $1 \\right} $0"
+    ]
+  },
+  "va": {
+    "prefix": "va",
+    "description": "valore assoluto",
+    "body": [
+      "\\left| $1 \\right| $0"
+    ]
+  },
+  "lim": {
+    "prefix": "lim",
+    "description": "limit",
+    "body": [
+      "\\lim_{$1 \\to $2} \\left( $3 \\right) $0"
+    ]
+  },
+  "compl": {
+    "prefix": "compl",
+    "description": "complement",
+    "body": [
+      "^{c}"
+    ]
+  },
+  "fr": {
+    "prefix": "fr",
+    "description": "Fraction",
+    "body": [
+      "\\\\frac{$1}{$2}$0"
+    ]
+  },
+  "\"hat\"": {
+    "prefix": "\"hat\"",
+    "description": "hat",
+    "body": [
+      "\\hat{$1}$0"
+    ]
+  },
+  "\"([a-zA-Z])hat\"": {
+    "prefix": "\"([a-zA-Z])hat\"",
+    "description": "([a-zA-Z])hat",
+    "body": [
+      "\\hat{`!p snip.rv=match.group(1)`}"
+    ]
+  },
+  "vec": {
+    "prefix": "vec",
+    "description": "Vector",
+    "body": [
+      "\\vec{ $1}$0"
+    ]
+  },
+  "par": {
+    "prefix": "par",
+    "description": "partial derivative",
+    "body": [
+      "\\frac{ \\partial $1 } { \\partial $2 } $0"
+    ]
+  },
+  "der": {
+    "prefix": "der",
+    "description": "derivative",
+    "body": [
+      "\\frac{ d $1 } {d $2} $0"
+    ]
+  },
+  "\"mat(\\d+)x(\\d+)\"": {
+    "prefix": "\"mat(\\d+)x(\\d+)\"",
+    "description": "mat(\\d+)x(\\d+)",
+    "body": []
+  },
+  "gras": {
+    "prefix": "gras",
+    "description": "grassetto",
+    "body": [
+      "\\textbf{ $1 } $0"
+    ]
+  },
+  "lag": {
+    "prefix": "lag",
+    "description": "lagrangian operator",
+    "body": [
+      "\\left( \\frac{d}{dt} \\frac{\\partial}{\\partial \\dot q_j} - \\frac{\\partial}{\\partial q_j} \\right)"
+    ]
+  }
+}
