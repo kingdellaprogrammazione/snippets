@@ -31,9 +31,9 @@ snippet template "lezioni"
 endsnippet
 
 snippet beg "begin{} / end{}" bA
-\begin{$2}
-	$1
-\end{$2}
+\begin{$1}
+	$2
+\end{$1}
 $0
 endsnippet
 
@@ -247,5 +247,13 @@ pre_expand "mat(snip)"
 snippet "mat(\d+)x(\d+)" "Add matrix" r
 endsnippet
 
+snippet gras "grassetto" 
+\textbf{ $1 } $0
+endsnippet
+
+context "math()"
+snippet lag "lagrangian operator" A
+\left( \frac{d}{dt} \frac{\partial}{\partial \dot q_j} - \frac{\partial}{\partial q_j} \right)
+endsnippet
 
 
