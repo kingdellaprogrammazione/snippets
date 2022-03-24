@@ -1,0 +1,251 @@
+
+global !p
+def math():
+	return vim.eval('vimtex#syntax#in_mathzone()') == '1'
+
+def comment(): 
+        return vim.eval('vimtex#syntax#in_comment()') == '1'
+
+def env(name):
+	[x,y] = vim.eval("vimtex#env#is_inside('" + name + "')") 
+	return x != '0' and x != '0'
+endglobal
+
+snippet template "lezioni" 
+\documentclass{article}
+\usepackage[italian]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage{fancyhdr}
+\usepackage{tikz}
+\usepackage{amsmath}
+
+\pagestyle{fancy}
+\fancyhf{}
+\rhead{Lezione $1}
+\lhead{$2}
+\rfoot{\thepage}
+
+\begin{document}
+	$0
+\end{document}
+endsnippet
+
+snippet beg "begin{} / end{}" bA
+\begin{$2}
+	$1
+\end{$2}
+$0
+endsnippet
+
+snippet item "Itemize" bA
+\begin{itemize}
+	\item $1
+\end{itemize}
+$0
+endsnippet
+	
+
+snippet tm  "Math" wA
+$${1}$`!p
+if t[2] and t[2][0] not in [',', '.', '?', '-', ' ']:
+    snip.rv = ' '
+else:
+    snip.rv = ''
+`$2
+endsnippet
+
+
+snippet dm "Math" wA
+$$
+$1
+$$
+$0
+endsnippet
+
+context "math()"
+snippet sb "subscript" iA
+_{$1}$0
+endsnippet
+
+context "math()"
+snippet sp "superscript" iA
+^{$1}$0
+endsnippet
+
+context "math()"
+snippet sid "sideset" A
+\sideset{_{$1}}{_{$2}^{$3}} $0
+endsnippet
+
+context "math()"
+snippet int "integral" A
+\int_{$1}^{$2} $3  d $0
+endsnippet
+
+context "math()"
+snippet oint "closed integral" A
+\oint_{$1}^{$2} $3 d $0
+endsnippet
+
+context "math()"
+snippet circ "circuitation" wA
+\oint_{$1} \vec{ $2} \cdot  d \vec{l} $0
+endsnippet
+
+context "math()"
+snippet sum "Sommatoria" wA
+\sum_{$1}^{$2} $0
+endsnippet
+
+context "math()"
+snippet nab "nabla" A
+\vec{\nabla} 
+endsnippet
+context "math()"
+snippet rot "rotor" A
+\vec{\nabla} \times $0
+endsnippet
+context "math()"
+snippet div "divergence" A
+\vec{\nabla} \cdot $0
+endsnippet
+
+context "math()"
+snippet det3 "determinant of a 3x3 matrix" wA
+\begin{vmatrix}
+$1 & $2 & $3 \\
+$4 & $5 & $6 \\
+$7 & $8 & $9 
+\end{vmatrix} $0
+endsnippet
+
+context "math()"
+snippet flux "flux" wA
+\phi_{$1} \left( $2 \right)  $0
+endsnippet
+
+context "math()"
+snippet chi "chi" wA
+\mathcal{X}
+endsnippet
+
+context "math()"
+snippet pv "prod vec" wA
+ \times 
+endsnippet
+
+context "math()"
+snippet ps "prod scal" wA
+ \cdot 
+endsnippet
+
+context "math()"
+snippet pt  "parentesi tonde" wA
+\left( $1 \right) $0
+endsnippet
+
+context "math()"
+snippet pq "parentesi quadre" wA
+\left[ $1 \right] $0 
+endsnippet
+
+context "math()"
+snippet pg "parentesi graffe" wA
+\left{ $1 \right} $0
+endsnippet
+
+context "math()"
+snippet va "valore assoluto" wA
+\left| $1 \right| $0
+endsnippet
+
+
+
+context "math()"
+snippet lim "limit" wA
+\lim_{$1 \to $2} \left( $3 \right) $0
+endsnippet
+context "math()"
+snippet compl "complement" iA
+^{c}
+endsnippet
+
+
+context "math()"
+snippet fr  "Fraction" iA
+\\frac{$1}{$2}$0
+endsnippet
+
+context "math()"
+priority 10
+snippet "hat" "hat" riA
+\hat{$1}$0
+endsnippet
+
+context "math()"
+priority 100
+snippet "([a-zA-Z])hat" "hat" riA
+\hat{`!p snip.rv=match.group(1)`}
+endsnippet
+
+context "math()"
+snippet vec "Vector" wA
+\vec{ $1}$0
+endsnippet 
+
+context "math()" 
+snippet par "partial derivative" A
+\frac{ \partial $1 } { \partial $2 } $0
+endsnippet
+
+context "math()
+snippet der "derivative" A
+\frac{ d $1 } {d $2} $0
+endsnippet
+
+
+global !p
+#modified to handle only a square matrix
+# Define matrix size in terms of rows/columns
+def mat(snip):
+	rows = snip.buffer[snip.line].split('x')[0]
+	cols = snip.buffer[snip.line].split('x')[1]
+
+	int_val = lambda string: int(''.join(s for s in string if s.isdigit()))
+	
+	r = int_val(rows)
+	c = int_val(cols)
+
+
+	offset = c + 1
+	old_spacing = snip.buffer[snip.line][:snip.buffer[snip.line].rfind('\t') + 1]
+	
+	snip.buffer[snip.line] = ''
+	
+	final_str = old_spacing + "\\begin{pmatrix}\n"
+
+	#for i in range(r):
+	#	final_str += old_spacing + '\t'
+	#	final_str += " & ".join(['$' + str(i * c + j + offset) for j in range(c)])
+	#	final_str += " \\\\\\\n"
+	for i in range(r-1):
+		final_str += old_spacing + '\t'
+		final_str += " & ".join(['$' + str(i * c + j + offset) for j in range(c)])
+		final_str += " \\\\\\\n"
+	final_str += old_spacing + '\t'
+	final_str += " & ".join(['$' + str((r-1) * c + j + offset) for j in range(c)])
+	final_str += "\n"
+	
+	final_str += old_spacing + "\\end{pmatrix}\n$0"
+
+	snip.expand_anon(final_str)
+endglobal
+
+# Function that lets you specificy an nxm matrix
+
+pre_expand "mat(snip)"
+snippet "mat(\d+)x(\d+)" "Add matrix" r
+endsnippet
+
+
+
